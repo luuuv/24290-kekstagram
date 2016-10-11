@@ -1,5 +1,5 @@
 'use strict';
-var getMessage = function(a, b) {
+window.getMessage = function(a, b) {
 
   if (typeof a === 'boolean') {
     if (a === true) {
