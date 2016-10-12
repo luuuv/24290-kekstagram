@@ -119,6 +119,7 @@
           this._resizeConstraint.side - this._ctx.lineWidth / 2,
           this._resizeConstraint.side - this._ctx.lineWidth / 2);
 
+
       // Восстановление состояния канваса, которое было до вызова ctx.save
       // и последующего изменения системы координат. Нужно для того, чтобы
       // следующий кадр рисовался с привычной системой координат, где точка
@@ -126,6 +127,37 @@
       // некорректно сработает даже очистка холста или нужно будет использовать
       // сложные рассчеты для координат прямоугольника, который нужно очистить.
       this._ctx.restore();
+      this._ctx.fillStyle = 'rgba(0,0,0,0.8)';
+      this._ctx.moveTo(0, 0);
+      this._ctx.lineTo(this._container.width, 0);
+      this._ctx.lineTo(this._container.width, this._container.height);
+      this._ctx.lineTo(0, this._container.height);
+      this._ctx.lineTo(0, 0);
+      this._ctx.closePath();
+      var middleX = this._container.width / 2;
+      var middleY = this._container.height / 2;
+      var upperLeftCornerX = middleX - this._resizeConstraint.side / 2 - this._ctx.lineWidth;
+      var upperLeftCornerY = middleY - this._resizeConstraint.side / 2 - this._ctx.lineWidth;
+      var bottomLeftCornerX = middleX - this._resizeConstraint.side / 2 - this._ctx.lineWidth;
+      var bottomLeftCornerY = middleY + this._resizeConstraint.side / 2 - this._ctx.lineWidth / 2;
+      var bottomRightCornerX = middleX + this._resizeConstraint.side / 2 - this._ctx.lineWidth / 2;
+      var bottomRightCornerY = middleY + this._resizeConstraint.side / 2 - this._ctx.lineWidth / 2;
+      var upperRightCornerX = middleX + this._resizeConstraint.side / 2 - this._ctx.lineWidth / 2;
+      var upperRightCornerY = middleY - this._resizeConstraint.side / 2 - this._ctx.lineWidth;
+      this._ctx.moveTo(upperLeftCornerX, upperLeftCornerY);
+      this._ctx.lineTo(bottomLeftCornerX, bottomLeftCornerY);
+      this._ctx.lineTo(bottomRightCornerX, bottomRightCornerY);
+      this._ctx.lineTo(upperRightCornerX, upperRightCornerY);
+      this._ctx.lineTo(upperLeftCornerX, upperLeftCornerY);
+      this._ctx.closePath();
+      this._ctx.fill();
+      var fontSize = 18;
+      var fontPadding = 10;
+      this._ctx.font = fontSize + 'px Tahoma';
+      this._ctx.fillStyle = '#ffffff';
+      this._ctx.textBaseline = 'hanging';
+      this._ctx.textAlign = 'center';
+      this._ctx.fillText(this._image.naturalWidth + ' x ' + this._image.naturalHeight, middleX, upperRightCornerY - fontSize - fontPadding );
     },
 
     /**
