@@ -151,7 +151,7 @@
       this._ctx.lineTo(upperLeftCornerX, upperLeftCornerY);
       this._ctx.closePath();
       this._ctx.fill();
-      var fontSize = 30;
+      var fontSize = 18;
       var fontPadding = 10;
       this._ctx.font = fontSize + 'px Tahoma';
       this._ctx.fillStyle = '#ffffff';
