@@ -71,8 +71,37 @@
    * Проверяет, валидны ли данные, в форме кадрирования.
    * @return {boolean}
    */
+
+  var inputLeft = document.getElementById('resize-x');
+  var inputTop = document.getElementById('resize-y');
+  var inputLength = document.getElementById('resize-size');
+
   var resizeFormIsValid = function() {
-    return true;
+    if (Number(inputLeft.value) + Number(inputLength.value) > currentResizer._image.naturalWidth) {
+      document.getElementById('resize-fwd').disabled = true;
+      return false;
+    } else if (Number(inputTop.value) + Number(inputLength.value) > currentResizer._image.naturalHeight) {
+      document.getElementById('resize-fwd').disabled = true;
+      return false;
+    } else if (Number(inputTop.value) < 0 || Number(inputLeft.value) < 0) {
+      document.getElementById('resize-fwd').disabled = true;
+      return false;
+    } else {
+      document.getElementById('resize-fwd').disabled = false;
+      return true;
+    }
+  };
+
+  inputLeft.oninput = function() {
+    resizeFormIsValid();
+    //console.log(inputLeft.value);
+    //document.getElementById('resize-fwd').disabled = true;
+  };
+  inputTop.oninput = function() {
+    resizeFormIsValid();
+  };
+  inputLength.oninput = function() {
+    resizeFormIsValid();
   };
 
   /**
