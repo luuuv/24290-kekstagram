@@ -81,7 +81,6 @@
     var inputTopValue = Number(inputTop.value);
     var inputLengthValue = Number(inputLength.value);
     var resizeSubmitState = document.getElementById('resize-fwd');
-    console.log(typeof document.getElementById('resize-fwd').disabled);
     if ((inputLeftValue + inputLengthValue > currentResizer._image.naturalWidth) || (inputTopValue + inputLengthValue > currentResizer._image.naturalHeight) || (inputTopValue < 0 || inputLeftValue < 0)) {
       resizeSubmitState.disabled = true;
       return false;
