@@ -230,6 +230,7 @@
 
       resizeForm.classList.add('invisible');
       filterForm.classList.remove('invisible');
+      setFilter();
     }
   };
 
@@ -257,7 +258,40 @@
 
     filterForm.classList.add('invisible');
     uploadForm.classList.remove('invisible');
+
   };
+
+  var setCookieExpDate = function() {
+    var currentDate = new Date();
+    var currentYear = currentDate.getFullYear();
+    var GraceBDayYear = currentYear;
+    var GraceBDay = new Date(GraceBDayYear, 11, 9);
+    var diffInDays = 0;
+    if (GraceBDay > currentDate) {
+      GraceBDay.setFullYear(currentYear - 1);
+      diffInDays = currentDate - GraceBDay;
+      diffInDays = Math.ceil(diffInDays / (1000 * 3600 * 24));
+    } else {
+      diffInDays = GraceBDay - currentDate;
+      diffInDays = Math.ceil(diffInDays / (1000 * 3600 * 24));
+    }
+    return diffInDays;
+
+  };
+  setCookieExpDate();
+
+  var saveFilter = function(filterValue) {
+    Cookies.set('upload-filter', 'upload-filter-' + filterValue, { expires: setCookieExpDate()});
+    console.log(document.cookie);
+  };
+
+  var setFilter = function() {
+    var currentFilterPicked = Cookies.get('upload-filter');
+    var inputToBeChecked = document.getElementById(currentFilterPicked);
+    inputToBeChecked.checked = true;
+    filterForm.onchange();
+  };
+
 
   /**
    * Обработчик изменения фильтра. Добавляет класс из filterMap соответствующий
@@ -279,6 +313,7 @@
     var selectedFilter = [].filter.call(filterForm['upload-filter'], function(item) {
       return item.checked;
     })[0].value;
+    saveFilter(selectedFilter);
 
     // Класс перезаписывается, а не обновляется через classList потому что нужно
     // убрать предыдущий примененный класс. Для этого нужно или запоминать его
