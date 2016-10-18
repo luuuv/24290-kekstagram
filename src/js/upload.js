@@ -261,28 +261,24 @@
 
   };
 
-  var setCookieExpDate = function() {
+  var calcCookieExpDate = function() {
     var currentDate = new Date();
     var currentYear = currentDate.getFullYear();
-    var GraceBDayYear = currentYear;
-    var GraceBDay = new Date(GraceBDayYear, 11, 9);
-    var diffInDays = 0;
+    var GraceBDay = new Date(currentYear, 11, 9);
+    var diffBetweenDates = 0;
     if (GraceBDay > currentDate) {
       GraceBDay.setFullYear(currentYear - 1);
-      diffInDays = currentDate - GraceBDay;
-      diffInDays = Math.ceil(diffInDays / (1000 * 3600 * 24));
+      diffBetweenDates = currentDate - GraceBDay;
     } else {
-      diffInDays = GraceBDay - currentDate;
-      diffInDays = Math.ceil(diffInDays / (1000 * 3600 * 24));
+      diffBetweenDates = GraceBDay - currentDate;
     }
+    var diffInDays = Math.ceil(diffBetweenDates / (1000 * 3600 * 24));
     return diffInDays;
 
   };
-  setCookieExpDate();
 
   var saveFilter = function(filterValue) {
-    Cookies.set('upload-filter', 'upload-filter-' + filterValue, { expires: setCookieExpDate()});
-    console.log(document.cookie);
+    Cookies.set('upload-filter', 'upload-filter-' + filterValue, { expires: calcCookieExpDate()});
   };
 
   var setFilter = function() {
