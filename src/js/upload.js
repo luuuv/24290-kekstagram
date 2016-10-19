@@ -1,4 +1,5 @@
 /* global Resizer: true */
+/* global Cookies: true */
 
 /**
  * @fileoverview
@@ -230,6 +231,7 @@
 
       resizeForm.classList.add('invisible');
       filterForm.classList.remove('invisible');
+      setFilter();
     }
   };
 
@@ -257,7 +259,36 @@
 
     filterForm.classList.add('invisible');
     uploadForm.classList.remove('invisible');
+
   };
+
+  var calcCookieExpDate = function() {
+    var currentDate = new Date();
+    var currentYear = currentDate.getFullYear();
+    var GraceBDay = new Date(currentYear, 11, 9);
+    var diffBetweenDates = 0;
+    if (GraceBDay > currentDate) {
+      GraceBDay.setFullYear(currentYear - 1);
+      diffBetweenDates = currentDate - GraceBDay;
+    } else {
+      diffBetweenDates = GraceBDay - currentDate;
+    }
+    var diffInDays = Math.ceil(diffBetweenDates / (1000 * 3600 * 24));
+    return diffInDays;
+
+  };
+
+  var saveFilter = function(filterValue) {
+    Cookies.set('upload-filter', 'upload-filter-' + filterValue, { expires: calcCookieExpDate()});
+  };
+
+  var setFilter = function() {
+    var currentFilterPicked = Cookies.get('upload-filter');
+    var inputToBeChecked = document.getElementById(currentFilterPicked);
+    inputToBeChecked.checked = true;
+    filterForm.onchange();
+  };
+
 
   /**
    * Обработчик изменения фильтра. Добавляет класс из filterMap соответствующий
@@ -279,6 +310,7 @@
     var selectedFilter = [].filter.call(filterForm['upload-filter'], function(item) {
       return item.checked;
     })[0].value;
+    saveFilter(selectedFilter);
 
     // Класс перезаписывается, а не обновляется через classList потому что нужно
     // убрать предыдущий примененный класс. Для этого нужно или запоминать его
