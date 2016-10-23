@@ -116,7 +116,8 @@ var template = document.getElementById('picture-template');
 var templateContainer = 'content' in template ? template.content : template;
 
 var getPictureElement = function(picture) {
-  var pictureElement = templateContainer.querySelector('.picture').cloneNode(true);
+  var pictureElementNode = templateContainer.querySelector('.picture');
+  var pictureElement = pictureElementNode.cloneNode(true);
   pictureElement.querySelector('.picture-comments').textContent = picture.comments;
   pictureElement.querySelector('.picture-likes').textContent = picture.likes;
 
@@ -125,8 +126,10 @@ var getPictureElement = function(picture) {
   backgroundImage.onload = function(event) {
     var picElemImage = pictureElement.querySelector('img');
     picElemImage.src = event.target.src;
-    picElemImage.width = '182';
-    picElemImage.height = '182';
+    var pictureWidth = '182';
+    var pictureHeight = '182';
+    picElemImage.width = pictureWidth;
+    picElemImage.height = pictureHeight;
   };
   backgroundImage.onerror = function() {
     pictureElement.classList.add('picture-load-failure');
