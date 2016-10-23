@@ -112,11 +112,12 @@ var filterBlock = document.querySelector('.filters');
 filterBlock.classList.add('hidden');
 
 var container = document.querySelector('.pictures');
-var template = document.getElementById('picture-template');
+var template = document.querySelector('#picture-template');
 var templateContainer = 'content' in template ? template.content : template;
+var pictureElementNode = templateContainer.querySelector('.picture');
+var pictureSide = '182';
 
 var getPictureElement = function(picture) {
-  var pictureElementNode = templateContainer.querySelector('.picture');
   var pictureElement = pictureElementNode.cloneNode(true);
   pictureElement.querySelector('.picture-comments').textContent = picture.comments;
   pictureElement.querySelector('.picture-likes').textContent = picture.likes;
@@ -126,10 +127,8 @@ var getPictureElement = function(picture) {
   backgroundImage.onload = function(event) {
     var picElemImage = pictureElement.querySelector('img');
     picElemImage.src = event.target.src;
-    var pictureWidth = '182';
-    var pictureHeight = '182';
-    picElemImage.width = pictureWidth;
-    picElemImage.height = pictureHeight;
+    picElemImage.width = pictureSide;
+    picElemImage.height = pictureSide;
   };
   backgroundImage.onerror = function() {
     pictureElement.classList.add('picture-load-failure');
