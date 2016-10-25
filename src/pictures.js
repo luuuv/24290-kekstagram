@@ -1,6 +1,5 @@
 'use strict';
 
-//var pictures;
 var urlToLoad = 'http://localhost:1507/api/pictures';
 var filterBlock = document.querySelector('.filters');
 var container = document.querySelector('.pictures');
@@ -33,10 +32,8 @@ var getPictureElement = function(picture) {
 
 var loadPictures = function(url) {
   window.MyCallbackFunc = function(data) {
-    var pictures = data;
-    renderPictures(pictures);
-    var picLoaderScript = document.querySelector('.loader');
-    picLoaderScript.remove();
+    renderPictures(data);
+    script.remove();
   };
   var script = document.createElement('script');
   script.src = url + '?callback=' + 'MyCallbackFunc';
