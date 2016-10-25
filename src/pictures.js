@@ -30,14 +30,13 @@ var getPictureElement = function(picture) {
   return pictureElement;
 };
 
-var loadPictures = function(url) {
-  window.MyCallbackFunc = function(data) {
-    renderPictures(data);
+var loadPictures = function(url, callback, callbackName) {
+  window[callbackName] = function(data) {
+    callback(data);
     script.remove();
   };
   var script = document.createElement('script');
-  script.src = url + '?callback=' + 'MyCallbackFunc';
-  script.classList.add('loader');
+  script.src = url + '?callback=' + callbackName;
   document.body.appendChild(script);
 };
 
@@ -48,4 +47,6 @@ var renderPictures = function(picArray) {
   filterBlock.classList.remove('hidden');
 };
 
-loadPictures(urlToLoad);
+loadPictures(urlToLoad, function(data) {
+  renderPictures(data);
+}, 'MyCallbackFunc');
