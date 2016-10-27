@@ -31,8 +31,11 @@ var getPictureElement = function(picture) {
 };
 
 var loadPictures = function(url, callback, callbackName) {
-  window[callbackName] = function(data) {
-    callback(data);
+  if (!callbackName) {
+    callbackName = 'mcb' + Date.now();
+  }
+  window[callbackName] = function(dataFromServer) {
+    callback(dataFromServer);
     script.remove();
   };
   var script = document.createElement('script');
@@ -47,6 +50,6 @@ var renderPictures = function(picArray) {
   filterBlock.classList.remove('hidden');
 };
 
-loadPictures(urlToLoad, function(data) {
-  renderPictures(data);
-}, 'MyCallbackFunc');
+loadPictures(urlToLoad, function(dataFromServer) {
+  renderPictures(dataFromServer);
+});
