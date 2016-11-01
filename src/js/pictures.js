@@ -4,53 +4,10 @@
   var urlToLoad = 'http://localhost:1507/api/pictures';
   var filterBlock = document.querySelector('.filters');
   var container = document.querySelector('.pictures');
-//var template = document.querySelector('#picture-template');
-//var templateContainer = 'content' in template ? template.content : template;
-//var pictureElementNode = templateContainer.querySelector('.picture');
-//var pictureSide = '182';
 
   filterBlock.classList.add('hidden');
 
-
-
-
-
-// var getPictureElement = function(picture) {
-//   var pictureElement = pictureElementNode.cloneNode(true);
-//   pictureElement.querySelector('.picture-comments').textContent = picture.comments;
-//   pictureElement.querySelector('.picture-likes').textContent = picture.likes;
-//
-//   var backgroundImage = new Image();
-//
-//   backgroundImage.onload = function(event) {
-//     var picElemImage = pictureElement.querySelector('img');
-//     picElemImage.src = event.target.src;
-//     picElemImage.width = pictureSide;
-//     picElemImage.height = pictureSide;
-//   };
-//   backgroundImage.onerror = function() {
-//     pictureElement.classList.add('picture-load-failure');
-//   };
-//   backgroundImage.src = picture.url;
-//   return pictureElement;
-// };
-
-
-
-
-
-// var loadPictures = function(url, callback, callbackName) {
-//   if (!callbackName) {
-//     callbackName = 'mcb' + Date.now();
-//   }
-//   window[callbackName] = function(dataFromServer) {
-//     callback(dataFromServer);
-//     script.remove();
-//   };
-//   var script = document.createElement('script');
-//   script.src = url + '?callback=' + callbackName;
-//   document.body.appendChild(script);
-// };
+  var getPictureElement = require('./get-picture-element');
 
   var renderPictures = function(picArray) {
     picArray.forEach(function(picture) {
@@ -59,10 +16,7 @@
     filterBlock.classList.remove('hidden');
   };
 
-
-
-
-
+  var loadPictures = require('./loader');
 
   loadPictures(urlToLoad, renderPictures);
 

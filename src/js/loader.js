@@ -13,4 +13,4 @@ var loadPictures = function(url, callback, callbackName) {
   document.body.appendChild(script);
 };
 
-module.exports = loadPictures();
+module.exports = loadPictures;

@@ -23,3 +23,5 @@ var getPictureElement = function(picture) {
   backgroundImage.src = picture.url;
   return pictureElement;
 };
+
+module.exports = getPictureElement;
