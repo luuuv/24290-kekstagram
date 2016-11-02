@@ -1,23 +1,17 @@
 'use strict';
-(function() {
+var loadPictures = require('./loader');
+var getPictureElement = require('./get-picture-element');
+var urlToLoad = 'http://localhost:1507/api/pictures';
+var filterBlock = document.querySelector('.filters');
+var container = document.querySelector('.pictures');
 
-  var urlToLoad = 'http://localhost:1507/api/pictures';
-  var filterBlock = document.querySelector('.filters');
-  var container = document.querySelector('.pictures');
+filterBlock.classList.add('hidden');
 
-  filterBlock.classList.add('hidden');
+var renderPictures = function(picArray) {
+  picArray.forEach(function(picture) {
+    container.appendChild(getPictureElement(picture));
+  });
+  filterBlock.classList.remove('hidden');
+};
 
-  var getPictureElement = require('./get-picture-element');
-
-  var renderPictures = function(picArray) {
-    picArray.forEach(function(picture) {
-      container.appendChild(getPictureElement(picture));
-    });
-    filterBlock.classList.remove('hidden');
-  };
-
-  var loadPictures = require('./loader');
-
-  loadPictures(urlToLoad, renderPictures);
-
-})();
+loadPictures(urlToLoad, renderPictures);
