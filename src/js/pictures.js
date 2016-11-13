@@ -18,19 +18,6 @@ var Picture = function(picture, index) {
     event.preventDefault();
     gallery.show(self.index);
   };
-  // gallery.closeElement.onclick = function(event) {
-  //   event.preventDefault();
-  //   gallery.hide();
-  // };
-  // gallery.galleryElement.onclick = function(event) {
-  //   event.preventDefault();
-  //   if((gallery.activePicture + 1) === gallery.pictures.length) {
-  //     gallery.setActivePicture(0);
-  //   } else {
-  //     gallery.setActivePicture(gallery.activePicture + 1);
-  //   }
-  // };
-
 };
 
 var gallery = new Gallery();

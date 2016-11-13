@@ -15,14 +15,23 @@ Gallery.prototype.show = function(numPicShown) {
   this.galleryElement.classList.remove('invisible');
   this.setActivePicture(numPicShown);
   var myself = this;
-  console.log(myself);
-  this.closeElement.addEventListener('click', this.hide.bind(myself));
+
+  this.closeElemEventListenerFunc = this.hide.bind(myself);
+  this.closeElement.addEventListener('click', this.closeElemEventListenerFunc);
+
+  this.photoElemEventListenerFunc = function() {
+    if(myself.activePicture === myself.pictures.length - 1) {
+      myself.setActivePicture(0);
+    } else {
+      myself.setActivePicture(myself.activePicture + 1);
+    }
+  };
+  this.photo.addEventListener('click', this.photoElemEventListenerFunc);
 };
 Gallery.prototype.hide = function() {
-  //console.log(event.target.parentElement);
   this.galleryElement.classList.add('invisible');
-  //как удалить этот eventLitener ? который ставится в методе show
-  //this.removeEventListener('click');
+  this.closeElement.removeEventListener('click', this.closeElemEventListenerFunc);
+  this.photo.removeEventListener('click', this.photoElemEventListenerFunc);
 };
 Gallery.prototype.setActivePicture = function(numPicShown) {
   this.activePicture = numPicShown;
