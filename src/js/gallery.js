@@ -14,19 +14,19 @@ Gallery.prototype.setPictures = function(picArr) {
 Gallery.prototype.show = function(numPicShown) {
   this.galleryElement.classList.remove('invisible');
   this.setActivePicture(numPicShown);
-  var myself = this;
 
-  this.closeElemEventListenerFunc = this.hide.bind(myself);
+  this.closeElemEventListenerFunc = this.hide.bind(this);
   this.closeElement.addEventListener('click', this.closeElemEventListenerFunc);
 
   this.photoElemEventListenerFunc = function() {
-    if(myself.activePicture === myself.pictures.length - 1) {
-      myself.setActivePicture(0);
+    if(this.activePicture === this.pictures.length - 1) {
+      this.setActivePicture(0);
     } else {
-      myself.setActivePicture(myself.activePicture + 1);
+      this.setActivePicture(this.activePicture + 1);
     }
   };
-  this.photo.addEventListener('click', this.photoElemEventListenerFunc);
+
+  this.photo.addEventListener('click', this.photoElemEventListenerFunc.bind(this));
 };
 Gallery.prototype.hide = function() {
   this.galleryElement.classList.add('invisible');
